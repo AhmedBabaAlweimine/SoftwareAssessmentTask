@@ -1,12 +1,6 @@
 package com.alweimine.supportticketsystemclientswing.mappper;
 
-/**
- * Abstract Mapper class to define the contract for mapping between
- * DTOs (Data Transfer Objects) and entities.
- *
- * @param <U> the entity type
- * @param <V> the DTO type
- */
+
 public abstract class AbstractMapper<U, V> {
 
     /**

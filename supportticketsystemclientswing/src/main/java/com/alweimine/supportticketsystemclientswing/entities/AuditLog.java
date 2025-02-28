@@ -18,5 +18,4 @@ public class AuditLog {
 
     private LocalDateTime timestamp;
 
-    // Getters and Setters
 }

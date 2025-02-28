@@ -2,6 +2,7 @@ package com.alweimine.supportticketsystemclientswing;
 
 import com.alweimine.supportticketsystemclientswing.entities.User;
 import com.alweimine.supportticketsystemclientswing.mappper.dto.UserDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,8 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SpringBootApplication
-public class UserLoginForm extends JFrame{
-    //private JFrame frame;
+public class UserLoginForm extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton, registerButton;
@@ -23,18 +23,20 @@ public class UserLoginForm extends JFrame{
     private CardLayout cardLayout;
     private JPanel panelContainer;
     private JComboBox<String> roleComboBox;
+    @Value("${host.ulr}")
+    private String host;
 
     public static void main(String[] args) {
 
         var ctx = new SpringApplicationBuilder(UserLoginForm.class)
                 .headless(false).web(WebApplicationType.NONE).run(args);
-
         EventQueue.invokeLater(() -> {
 
             var ex = ctx.getBean(UserLoginForm.class);
             ex.setVisible(true);
         });
     }
+
     public UserLoginForm() {
         setTitle("User Login and Registration");
         setBounds(100, 100, 400, 300);
@@ -52,7 +54,6 @@ public class UserLoginForm extends JFrame{
 
         panelContainer.add(loginPanel, "Login");
         panelContainer.add(registerPanel, "Register");
-
 
         // Show the login panel by default
         cardLayout.show(panelContainer, "Login");
@@ -194,27 +195,22 @@ public class UserLoginForm extends JFrame{
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        String loginUrl = "http://localhost:8080/users/login";  // Replace with your backend URL
-        UserDto userDto = new UserDto(null,username, password, role.equals("Employee")? User.Role.EMPLOYEE: User.Role.IT_SUPPORT,null,null);
+        String loginUrl = host + "users/login";  // Replace with your backend URL
+        UserDto userDto = new UserDto(null, username, password, role.equals("Employee") ? User.Role.EMPLOYEE : User.Role.IT_SUPPORT, null, null);
 
         try {
             ResponseEntity<UserDto> response = restTemplate.postForEntity(loginUrl, userDto, UserDto.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                //dispose();
-                TicketListUi ticketListGUI=new TicketListUi(username,role);
+                TicketListUi ticketListGUI = new TicketListUi(username, role,host);
                 ticketListGUI.setVisible(true);
                 usernameField.setText("");
                 passwordField.setText("");
                 statusLabel.setText("Login successful!");
-
-                /* If the user is IT Support, show ticket list
-                if ("IT Support".equals(role)) {
-                    showTicketsList();
-                }*/
             } else {
                 statusLabel.setText("Invalid credentials.");
             }
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             statusLabel.setText("Error connecting to server.");
         }
     }
@@ -226,8 +222,8 @@ public class UserLoginForm extends JFrame{
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        String registerUrl = "http://localhost:8080/users";  // Replace with your backend URL
-        UserDto userDto = new UserDto(null,username, password, User.Role.IT_SUPPORT,null,null);
+        String registerUrl = host + "users";  // Replace with your backend URL
+        UserDto userDto = new UserDto(null, username, password, role.equals("Employee") ? User.Role.EMPLOYEE : User.Role.IT_SUPPORT, null, null);
 
         try {
             ResponseEntity<UserDto> response = restTemplate.postForEntity(registerUrl, userDto, UserDto.class);
@@ -241,29 +237,5 @@ public class UserLoginForm extends JFrame{
             JOptionPane.showMessageDialog(registerButton, "Error connecting to server.");
         }
     }
-
-   /* private void showTicketsList() {
-        // Fetch the tickets and display them for IT Support
-        RestTemplate restTemplate = new RestTemplate();
-        String ticketUrl = "http://localhost:8080/tickets";  // Replace with your backend URL
-
-        try {
-            ResponseEntity<List<TicketDto>> response = restTemplate.exchange(ticketUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<TicketDto>>() {});
-            List<TicketDto> tickets = response.getBody();
-
-            if (tickets != null && !tickets.isEmpty()) {
-                StringBuilder ticketList = new StringBuilder("Tickets:\n");
-                for (TicketDto ticket : tickets) {
-                    ticketList.append(ticket.getTicketId()).append(" - ").append(ticket.getTitle()).append("\n");
-                }
-
-                JOptionPane.showMessageDialog(frame, ticketList.toString(), "Tickets List", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(frame, "No tickets available.", "Tickets List", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frame, "Error fetching tickets.");
-        }
-    }*/
 }
 

@@ -18,7 +18,7 @@ public class TicketDto {
     private String description;
     private Ticket.Priority priority;
     private Ticket.Category category;
-    private Ticket.Status status= Ticket.Status.NEW;
+    private Ticket.Status status = Ticket.Status.NEW;
     private LocalDateTime creationDate;
     private UserDto userDto;
     private List<CommentDto> commentDtos;

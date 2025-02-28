@@ -21,4 +21,4 @@ public class UserDto {
     private List<TicketDto> ticketDtos;
     private List<CommentDto> commentDtos;
 
-   }
+}

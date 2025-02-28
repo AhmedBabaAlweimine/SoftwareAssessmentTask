@@ -27,7 +27,7 @@ public class TicketMapper extends AbstractMapper<Ticket, TicketDto> {
         ticket.setCreationDate(LocalDateTime.now());
         if (dto.getUserDto() != null)
             ticket.setUser(userMapper.dtoToEntity(dto.getUserDto()));
-        if (dto.getCommentDtos()!=null)
+        if (dto.getCommentDtos() != null)
             ticket.setComments(dto.getCommentDtos().stream().
                     map(commentMapper::dtoToEntity).collect(Collectors.toList()));
         return ticket;
@@ -35,7 +35,7 @@ public class TicketMapper extends AbstractMapper<Ticket, TicketDto> {
 
     @Override
     public TicketDto entityToDto(Ticket entity) {
-        TicketDto ticketDto=new TicketDto();
+        TicketDto ticketDto = new TicketDto();
         ticketDto.setTicketId(entity.getTicketId());
         ticketDto.setTitle(entity.getTitle());
         ticketDto.setCategory(entity.getCategory());
@@ -44,7 +44,7 @@ public class TicketMapper extends AbstractMapper<Ticket, TicketDto> {
         ticketDto.setCreationDate(entity.getCreationDate());
         ticketDto.setStatus(entity.getStatus());
         ticketDto.setUserDto(userMapper.entityToDto(entity.getUser()));
-        if(entity.getComments()!=null)
+        if (entity.getComments() != null)
             ticketDto.setCommentDtos(entity.getComments().stream().map(commentMapper::entityToDto).collect(Collectors.toList()));
 
         return ticketDto;

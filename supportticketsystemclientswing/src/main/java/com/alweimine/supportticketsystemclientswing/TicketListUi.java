@@ -5,6 +5,7 @@ import com.alweimine.supportticketsystemclientswing.entities.User;
 import com.alweimine.supportticketsystemclientswing.mappper.dto.CommentDto;
 import com.alweimine.supportticketsystemclientswing.mappper.dto.TicketDto;
 import com.alweimine.supportticketsystemclientswing.mappper.dto.UserDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,14 @@ public class TicketListUi extends JFrame {
     private DefaultTableModel tableModel;
     private JButton editButton, createTicketButton, addCommentButton, logOutButton, viewAuditlogsButton;
     private RestTemplate restTemplate;
-    private static final String BASE_URL = "http://localhost:8080/tickets"; // Replace with your backend URL
+    private String BASE_URL;
 
-    public TicketListUi(String username, String role) {
+
+    public TicketListUi(String username, String role,String host) {
         this.userName = username;
         this.role = role;
+        this.BASE_URL=host + "tickets";;
         restTemplate = new RestTemplate();
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setTitle("Ticket List");
@@ -40,7 +42,6 @@ public class TicketListUi extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL; // Set default horizontal filling
 
-        // Panel for buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
@@ -63,14 +64,11 @@ public class TicketListUi extends JFrame {
             buttonPanel.add(viewAuditlogsButton);
         }
 
-
         buttonPanel.add(logOutButton);
-
-        // Add the button panel to the grid
         gbc.gridx = 0;
-        gbc.gridy = 1; // Place below the table
-        gbc.gridwidth = 3; // Span across 3 columns
-        gbc.insets = new Insets(10, 10, 10, 10); // Add padding around the panel
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        gbc.insets = new Insets(10, 10, 10, 10);
         add(buttonPanel, gbc);
 
         // Table model
@@ -80,12 +78,11 @@ public class TicketListUi extends JFrame {
         // Adding table to scroll pane
         JScrollPane scrollPane = new JScrollPane(ticketTable);
 
-        // Add scroll pane for the table to the grid
         gbc.gridx = 0;
-        gbc.gridy = 0; // Place at the top
-        gbc.gridwidth = 3; // Span across 3 columns
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
         gbc.weightx = 1.0;
-        gbc.weighty = 1.0; // Allow table to take up remaining space
+        gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         add(scrollPane, gbc);
 
@@ -113,7 +110,7 @@ public class TicketListUi extends JFrame {
     }
 
     private void createTicket() {
-        // Show edit dialog
+        // Show create dialog
         JTextField titleField = new JTextField(20);
         JTextField descriptionField = new JTextField(20);
         JComboBox<String> categoryComboBox = new JComboBox<>(new String[]{"Network", "Hardware", "Software", "Other"});
@@ -123,29 +120,27 @@ public class TicketListUi extends JFrame {
         JTextField creationField = new JTextField(LocalDateTime.now().toString(), 20);
         creationField.setEnabled(false);
 
-
-        // Panel for the title and description fields
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout()); // Set GridBagLayout
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0; // First column
         gbc.gridy = 0; // First row
-        gbc.anchor = GridBagConstraints.WEST; // Align components to the left
+        gbc.anchor = GridBagConstraints.WEST;
 
-        panel.add(new JLabel("Title:"), gbc); // Add Title label
+        panel.add(new JLabel("Title:"), gbc);
 
-        gbc.gridx = 1; // Move to the second column
-        panel.add(titleField, gbc); // Add Title field
+        gbc.gridx = 1;
+        panel.add(titleField, gbc);
 
-        gbc.gridx = 0; // Reset to the first column
-        gbc.gridy = 1; // Move to the second row
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         panel.add(new JLabel("Description:"), gbc); // Add Description label
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(descriptionField, gbc); // Add Description field
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(categoryComboBox, gbc);
         gbc.fill = GridBagConstraints.BOTH;
 
@@ -153,7 +148,7 @@ public class TicketListUi extends JFrame {
         gbc.gridy = 2;
         panel.add(new JLabel("Status:"), gbc); // Add Description label
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(statusComboBox, gbc);
 
         gbc.gridx = 0;
@@ -161,14 +156,14 @@ public class TicketListUi extends JFrame {
         panel.add(new JLabel("Category:"), gbc); // Add Description label
         gbc.fill = GridBagConstraints.BOTH;
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(categoryComboBox, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         panel.add(new JLabel("Priority:"), gbc); // Add Description label
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(priorityComboBox, gbc);
         gbc.fill = GridBagConstraints.BOTH;
 
@@ -176,12 +171,12 @@ public class TicketListUi extends JFrame {
         gbc.gridy = 5;
         panel.add(new JLabel("Creation Date:"), gbc); // Add Description label
 
-        gbc.gridx = 1; // Move to the second column
+        gbc.gridx = 1;
         panel.add(creationField, gbc);
 
         int option = JOptionPane.showConfirmDialog(createTicketButton, panel, "New Ticket", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            // Update ticket details
+            // create ticket details
             TicketDto newTicket = new TicketDto();
             newTicket.setDescription(descriptionField.getText());
             newTicket.setTitle(titleField.getText());
@@ -241,10 +236,8 @@ public class TicketListUi extends JFrame {
     }
 
     private void handleLogout() {
-        int a = JOptionPane.showConfirmDialog(logOutButton, "Are you sure?");
-        // JOptionPane.setRootFrame(null);
+        int a = JOptionPane.showConfirmDialog(logOutButton, "Are you sure you want to log out?");
         if (a == JOptionPane.YES_OPTION) {
-            //dispose();
             this.setVisible(false);
         }
     }
@@ -260,8 +253,7 @@ public class TicketListUi extends JFrame {
             String status = (String) tableModel.getValueAt(selectedRow, 5).toString();
             LocalDateTime creation = (LocalDateTime) tableModel.getValueAt(selectedRow, 6);
 
-
-            // Show edit dialog
+            // Show comment dialog
             JTextField titleField = new JTextField(title, 20);
             titleField.setEnabled(false);
             JTextField descriptionField = new JTextField(description, 20);
@@ -284,61 +276,61 @@ public class TicketListUi extends JFrame {
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridx = 0; // First column
             gbc.gridy = 0; // First row
-            gbc.anchor = GridBagConstraints.WEST; // Align components to the left
+            gbc.anchor = GridBagConstraints.WEST;
 
-            panel.add(new JLabel("Title:"), gbc); // Add Title label
+            panel.add(new JLabel("Title:"), gbc);
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(titleField, gbc); // Add Title field
 
-            gbc.gridx = 0; // Reset to the first column
-            gbc.gridy = 1; // Move to the second row
+            gbc.gridx = 0;
+            gbc.gridy = 1;
             panel.add(new JLabel("Description:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(descriptionField, gbc); // Add Description field
 
             gbc.gridx = 0;
             gbc.gridy = 2;
             panel.add(new JLabel("Current Status:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(currentStatusField, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 4;
             panel.add(new JLabel("Category:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(categoryField, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 5;
             panel.add(new JLabel("Priority:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(priorityField, gbc);
             gbc.gridx = 0;
             gbc.gridy = 6;
             panel.add(new JLabel("Creation Date:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(creationField, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 7;
             panel.add(new JLabel("Comment:"), gbc); // Add Description label
             gbc.fill = GridBagConstraints.BOTH;
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(commentField, gbc);
 
             int option = JOptionPane.showConfirmDialog(editButton, panel, "Add Comment", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                // Update ticket details
+                // comment details
                 UserDto userDto = new UserDto();
                 userDto.setUsername(userName);
                 CommentDto newComment = new CommentDto(null, commentField.getText(), null, null, userDto);
-                String url = BASE_URL + "/comments/" + ticketId; // Replace with your backend URL
+                String url = BASE_URL + "/comments/" + ticketId;
                 try {
                     ResponseEntity<CommentDto> response = restTemplate.postForEntity(url, newComment, CommentDto.class);
                     if (response.getStatusCode().is2xxSuccessful()) {
@@ -396,45 +388,45 @@ public class TicketListUi extends JFrame {
             gbc.gridx = 1; // Move to the second column
             panel.add(titleField, gbc); // Add Title field
 
-            gbc.gridx = 0; // Reset to the first column
-            gbc.gridy = 1; // Move to the second row
+            gbc.gridx = 0;
+            gbc.gridy = 1;
             panel.add(new JLabel("Description:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(descriptionField, gbc); // Add Description field
 
             gbc.gridx = 0;
             gbc.gridy = 2;
             panel.add(new JLabel("Current Status:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(currentStatusField, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 3;
             panel.add(new JLabel("Status:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(statusComboBox, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 4;
             panel.add(new JLabel("Category:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(categoryField, gbc);
 
             gbc.gridx = 0;
             gbc.gridy = 5;
             panel.add(new JLabel("Priority:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(priorityField, gbc);
             gbc.gridx = 0;
             gbc.gridy = 6;
             panel.add(new JLabel("Creation Date:"), gbc); // Add Description label
 
-            gbc.gridx = 1; // Move to the second column
+            gbc.gridx = 1;
             panel.add(creationField, gbc);
 
             int option = JOptionPane.showConfirmDialog(editButton, panel, "Edit Ticket", JOptionPane.OK_CANCEL_OPTION);
@@ -462,7 +454,7 @@ public class TicketListUi extends JFrame {
         int selectedRow = ticketTable.getSelectedRow();
         if (selectedRow != -1) {
             long ticketId = (long) tableModel.getValueAt(selectedRow, 0);
-            AuditLogUI auditLogUI = new AuditLogUI(this.userName, this.role, ticketId);
+            AuditLogUI auditLogUI = new AuditLogUI(this.userName, this.role, ticketId,this.BASE_URL);
             auditLogUI.setVisible(true);
         }
     }

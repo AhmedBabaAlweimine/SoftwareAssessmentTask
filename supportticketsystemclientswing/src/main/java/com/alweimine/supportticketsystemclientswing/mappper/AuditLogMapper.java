@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class AuditLogMapper extends AbstractMapper<AuditLog, AuditLogDto> {
     private UserMapper userMapper;
+
     @Override
     public AuditLog dtoToEntity(AuditLogDto dto) {
 
@@ -17,7 +18,7 @@ public class AuditLogMapper extends AbstractMapper<AuditLog, AuditLogDto> {
 
     @Override
     public AuditLogDto entityToDto(AuditLog entity) {
-        AuditLogDto auditLogDto=new AuditLogDto();
+        AuditLogDto auditLogDto = new AuditLogDto();
         auditLogDto.setLogId(entity.getLogId());
         auditLogDto.setTimestamp(entity.getTimestamp());
         auditLogDto.setAction(entity.getAction());

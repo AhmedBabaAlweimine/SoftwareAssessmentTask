@@ -17,5 +17,4 @@ public class Comment {
     private Ticket ticket;
     private User user;
 
-    // Getters and Setters
 }

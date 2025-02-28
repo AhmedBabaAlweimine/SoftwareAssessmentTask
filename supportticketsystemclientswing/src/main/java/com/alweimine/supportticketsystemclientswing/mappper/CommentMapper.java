@@ -15,7 +15,7 @@ public class CommentMapper extends AbstractMapper<Comment, CommentDto> {
 
     @Override
     public Comment dtoToEntity(CommentDto dto) {
-        Comment comment=new Comment();
+        Comment comment = new Comment();
         comment.setText(dto.getText());
         comment.setCreationDate(LocalDateTime.now());
         return comment;
@@ -23,7 +23,7 @@ public class CommentMapper extends AbstractMapper<Comment, CommentDto> {
 
     @Override
     public CommentDto entityToDto(Comment entity) {
-        CommentDto commentDto=new CommentDto();
+        CommentDto commentDto = new CommentDto();
         commentDto.setCommentId(entity.getCommentId());
         commentDto.setText(entity.getText());
         commentDto.setCreationDate(entity.getCreationDate());

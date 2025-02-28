@@ -31,8 +31,6 @@ public class Ticket {
 
     private List<Comment> comments;
 
-    // Getters and Setters
-
     public enum Priority {
         LOW, MEDIUM, HIGH
     }

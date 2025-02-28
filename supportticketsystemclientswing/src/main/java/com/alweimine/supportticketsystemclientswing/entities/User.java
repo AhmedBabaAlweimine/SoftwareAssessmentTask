@@ -21,7 +21,6 @@ public class User {
     private List<Ticket> tickets;
     private List<Comment> comments;
 
-    // Getters and Setters
 
     public enum Role {
         EMPLOYEE, IT_SUPPORT
