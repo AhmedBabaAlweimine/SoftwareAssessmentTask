@@ -22,6 +22,9 @@ Audit Log:
 Track changes to ticket status and added comments.
 Search & Filter:
 Search by ticket ID and status.
+
+
+
 Technology Stack & Guidelines:
 Backend: Java 17, Spring Boot, RESTful API with Swagger/OpenAPI
 Database: Oracle SQL (provide schema as an SQL script)
