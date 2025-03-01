@@ -46,10 +46,11 @@ To start the backend service:
 This will automatically download the necessary Docker images and run the backend in a container.
 The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml.
 the documentation swagger is available at : swagger-ui/index.html#/
-3. Frontend
+2. Frontend
 After ensuring the backend is running, you can launch the frontend by running:
-bash
-Copy
 
-java -jar supportticketsystemswingclient.jar  or enter supportticketsystemclientswing folder and execute: mvn spring-boot:run
+java -jar supportticketsystemswingclient.jar  
+or 
+enter supportticketsystemclientswing folder and execute: mvn spring-boot:run
+
 The frontend will communicate with the backend for data and display it within the Swing GUI.
