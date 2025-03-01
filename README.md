@@ -39,7 +39,10 @@ Swing client as an executable JAR file
 Run the Application
 1. Backend
 To start the backend service:
-      docker-compose up
+
+   docker pull aalwei/supportticketsystemmysql     
+   docker-compose up
+   
 This will automatically download the necessary Docker images and run the backend in a container.
 The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml.
 the documentation swagger is available at : swagger-ui/index.html#/
