@@ -43,7 +43,7 @@ Run the Application
 1. Backend
 To start the backend service:
 
-   docker pull aalwei/supportticketsystemmysql     
+   docker pull  aalwei/supportticketsystemoracle:latest    
    docker-compose up
    
 This will automatically download the necessary Docker images and run the backend in a container.
