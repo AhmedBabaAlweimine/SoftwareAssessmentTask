@@ -21,18 +21,16 @@ public class Ticket {
             sequenceName = "ticket_sequence",
             allocationSize = 1)
     private Long ticketId;
-
     private String title;
     private String description;
-
+    @Column(length = 50)
     @Enumerated(EnumType.STRING)
     private Priority priority;
-
+    @Column(length = 50)
     @Enumerated(EnumType.STRING)
     private Category category;
-
     private LocalDateTime creationDate;
-
+    @Column(length = 50)
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -40,7 +38,7 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "ticket",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     // Getters and Setters

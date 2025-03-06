@@ -25,6 +25,7 @@ public class User {
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
+    @Column(length = 50)
     private Role role;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
