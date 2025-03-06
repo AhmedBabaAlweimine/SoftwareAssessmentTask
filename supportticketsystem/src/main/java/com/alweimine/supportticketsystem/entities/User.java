@@ -12,11 +12,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
+@Table(name = "user_ticket")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
+    @SequenceGenerator(name = "user_id_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1)
     private Long userId;
 
     private String username;

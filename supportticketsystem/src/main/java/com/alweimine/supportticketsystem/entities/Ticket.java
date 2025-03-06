@@ -16,7 +16,10 @@ import java.util.List;
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_id_sequence")
+    @SequenceGenerator(name = "ticket_id_sequence",
+            sequenceName = "ticket_sequence",
+            allocationSize = 1)
     private Long ticketId;
 
     private String title;

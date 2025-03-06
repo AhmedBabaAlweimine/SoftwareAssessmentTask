@@ -11,11 +11,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
+@Table(name = "comment_ticket")
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_id_sequence")
+    @SequenceGenerator(name = "comment_id_sequence",
+            sequenceName = "comment_sequence",
+            allocationSize = 1)
     private Long commentId;
 
     private String text;

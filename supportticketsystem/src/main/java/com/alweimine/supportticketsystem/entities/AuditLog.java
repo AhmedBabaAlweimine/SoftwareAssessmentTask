@@ -11,11 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
 public class AuditLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auditLog_id_sequence")
+    @SequenceGenerator(name = "auditLog_id_sequence",
+            sequenceName = "auditLog_sequence",
+            allocationSize = 1)
     private Long logId;
 
     private String action;

@@ -46,16 +46,14 @@ public class TicketService {
     public int updateTicketStatus(Long ticketId, Ticket.Status newStatus, String username) {
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new RuntimeException("Ticket not found"));
         User user = userRepository.findByUsername(username);
-
-        if (newStatus != Ticket.Status.NEW) {
-            AuditLog log = new AuditLog();
-            log.setAction("Status Change from :"+ticket.getStatus() +"->"+newStatus);
-            log.setTicket(ticket);
-            log.setActionBy(user);
-            log.setTimestamp(LocalDateTime.now());
-            auditLogRepository.save(log);
-        }
-        return ticketRepository.updateStatus(ticketId, newStatus);
+        int nbrRowUpdated = ticketRepository.updateStatus(ticketId, newStatus);
+        AuditLog log = new AuditLog();
+        log.setAction("Status Change from :" + ticket.getStatus() + "->" + newStatus);
+        log.setTicket(ticket);
+        log.setActionBy(user);
+        log.setTimestamp(LocalDateTime.now());
+        auditLogRepository.save(log);
+        return nbrRowUpdated;
     }
 
     @Transactional
@@ -94,6 +92,7 @@ public class TicketService {
         return ticketRepository.findAll().stream().map(ticketMapper::entityToDto).collect(Collectors.toList());
 
     }
+
     public List<TicketDto> getTicketsByUserName(String userName) {
         List<Ticket> ticketList = ticketRepository.getByUser_Username(userName);
         // Convert the list of entities to a list of DTOs
