@@ -54,6 +54,8 @@ The backend will be accessible at http://localhost:8080.
  ![image](https://github.com/user-attachments/assets/aa5bfe0f-0e44-4214-b7d7-772bfbd382b4)
 
 the documentation swagger is available at : [http://localhost:8080:swagger-ui/index.html#/]
+
+
 2. Frontend
 After ensuring the backend is running, you can launch the frontend by running:
 
