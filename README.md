@@ -38,7 +38,6 @@ Docker container for backend and Oracle DB
 Swing client as an executable JAR file
 
 
-
 Run the Application
 1. Backend
 To start the backend service:
