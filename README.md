@@ -43,14 +43,16 @@ Run the Application
 1. Backend
 To start the backend service:
 
-   docker pull  aalwei/supportticketsystemoracle:latest    
-   docker-compose up
-   docker ps should show the containers runing in healthy state as show below attached picture:
-![image](https://github.com/user-attachments/assets/6084b59e-7cfb-4004-828e-535738af34b2)
-
+ a) docker pull  aalwei/supportticketsystemoracle:latest    
+    
+ b) run the docker compose file : docker-compose up
    
 This will automatically download the necessary Docker images and run the backend in a container.
 The backend will be accessible at http://localhost:8080.
+
+ c) show running containers: docker ps ,should show the containers runing in healthy state as show th below attached picture:
+ ![image](https://github.com/user-attachments/assets/aa5bfe0f-0e44-4214-b7d7-772bfbd382b4)
+
 the documentation swagger is available at : [http://localhost:8080:swagger-ui/index.html#/]
 2. Frontend
 After ensuring the backend is running, you can launch the frontend by running:
