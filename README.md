@@ -1,4 +1,4 @@
-# IT Support Ticket System with spring boot,Oracle,Docker and Swing UI:
+# IT Support Ticket System with spring boot,Oracle,Docker and Swing UI
 
 ## this project aim to develop a simple ticket management application that allows employees to report and track IT issues.
 
@@ -71,4 +71,4 @@ the documentation swagger is available at :
      or
    * cd /supportticketsystemclientswing folder and execute: mvn spring-boot:run
 
-The frontend will communicate with the backend for data and display it within the Swing GUI.
+🏆 The previous sections are the bare minimum, The front-End will communicate with the Backend for data and display it within the Swing GUI.
