@@ -45,10 +45,13 @@ To start the backend service:
 
    docker pull  aalwei/supportticketsystemoracle:latest    
    docker-compose up
+   docker ps should show the containers runing in healthy state as show below attached picture:
+![image](https://github.com/user-attachments/assets/6084b59e-7cfb-4004-828e-535738af34b2)
+
    
 This will automatically download the necessary Docker images and run the backend in a container.
-The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml.
-the documentation swagger is available at : swagger-ui/index.html#/
+The backend will be accessible at http://localhost:8080.
+the documentation swagger is available at : [http://localhost:8080:swagger-ui/index.html#/]
 2. Frontend
 After ensuring the backend is running, you can launch the frontend by running:
 
