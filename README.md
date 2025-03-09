@@ -48,18 +48,17 @@ Search by ticket ID and status.
 ### User instruction to run this application
 1. Backend Spring boot RESTAPI
    To start the backend service:
-   * open git bash 
-   * clone this repository 
-   * cd /supportticketsystem
-   * docker pull  aalwei/supportticketsystemoracle:latest
-   * docker-compose up
+   * <code style="color : Aqua">git clone this repository </code> 
+   * <code style="color : Aqua">cd /supportticketsystem </code>
+   * <code style="color : Aqua">docker pull  aalwei/supportticketsystemoracle:latest </code>
+   * <code style="color : Aqua">docker-compose up </code>
 
-This will automatically download the necessary Docker images and run the backend in a container.
+This will automatically download the necessary Docker images and run the backend (Rest Api and OracleDB) in a container.
 The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml. 
 
 to see the running containers: 
-   * docker ps 
-   * you should now see the containers runing in healthy state as show th below attached picture:
+   * <code style="color : Aqua">docker ps </code> 
+   * you should now see the containers running in healthy state as show th below attached picture:
    ![image](https://github.com/user-attachments/assets/aa5bfe0f-0e44-4214-b7d7-772bfbd382b4)
 
 the documentation swagger is available at : 
@@ -67,8 +66,8 @@ the documentation swagger is available at :
 2. Frontend
    After ensuring the backend is running, you can launch the frontend by running:
 
-   * java -jar supportticketsystemswingclient.jar  
-     or
-   * cd /supportticketsystemclientswing folder and execute: mvn spring-boot:run
+   * <code style="color : Gold">java -jar supportticketsystemswingclient.jar </code>   
+                     or
+   * <code style="color : Aqua">cd /supportticketsystemclientswing folder </code> and execute: <code style="color : Gold">mvn spring-boot:run </code>
 
 🏆 The previous sections are the bare minimum, The front-End will communicate with the Backend for data and display it within the Swing GUI.
