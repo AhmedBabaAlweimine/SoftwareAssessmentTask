@@ -1,4 +1,4 @@
-# IT Support Ticket System with spring boot and swing UI:
+# IT Support Ticket System with spring boot,Oracle,Docker and Swing UI:
 
 ## this project aim to develop a simple ticket management application that allows employees to report and track IT issues.
 
@@ -29,34 +29,41 @@ Search by ticket ID and status.
 
 
 #### Technology Stack & Guidelines:
-##### Backend:
 * Java 17, Spring Boot, RESTful API with Swagger/OpenAPI
-  Database: Oracle SQL (provide schema as an SQL script)
-  UI: Java Swing (use MigLayout or GridBagLayout)
-  Testing: JUnit, Mockito
+*  Database: Oracle SQL (provide schema as an SQL script)
+*  UI: Java Swing (use MigLayout or GridBagLayout)
+*  Testing: JUnit, Mockito
+
 
 * Documentation:
-  README with setup instructions
-  Markdown file for API documentation
+  README with setup instructions Markdown file for API documentation
+
 
 * Deployment:
-  Docker container for backend and Oracle DB
-  Swing client as an executable JAR file
+  - Docker container for backend and Oracle DB
+   - Swing client as an executable JAR file
 
 
 
 ### User instruction to run this application
-1. Backend
+1. Backend Spring boot RESTAPI
    To start the backend service:
-   * clone this repo
+   * open git bash 
+   * clone this repository 
    * cd /supportticketsystem
    * docker pull  aalwei/supportticketsystemoracle:latest
    * docker-compose up
 
 This will automatically download the necessary Docker images and run the backend in a container.
-The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml.
+The backend will be accessible at http://localhost:8080 or the port you’ve specified in docker-compose.yaml. 
 
-the documentation swagger is available at : swagger-ui/index.html#/
+to see the running containers: 
+   * docker ps 
+   * you should now see the containers runing in healthy state as show th below attached picture:
+   ![image](https://github.com/user-attachments/assets/aa5bfe0f-0e44-4214-b7d7-772bfbd382b4)
+
+the documentation swagger is available at : 
+   * http://localhost:8080/swagger-ui/index.html#/
 2. Frontend
    After ensuring the backend is running, you can launch the frontend by running:
 
